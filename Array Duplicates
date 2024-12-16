@@ -1,0 +1,21 @@
+vector<int> findDuplicates(vector<int>& arr) {
+        // code here
+        int  n = arr.size();
+        sort(arr.begin(),arr.end());
+        vector<int> ans;
+        int i=0;
+        while(i<n-1){
+            if(arr[i]==arr[i+1]){
+                if(ans.empty() || ans.back()!=arr[i]){
+                    ans.push_back(arr[i++]);
+                }
+                else{
+                    i++;
+                }
+            }
+            else{
+                i++;
+            }
+        }
+        return ans;
+    }

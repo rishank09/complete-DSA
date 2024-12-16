@@ -1,0 +1,51 @@
+  vector<int> findUnion(vector<int> &a, vector<int> &b) {
+          int i = 0, j = 0;
+    vector<int> unionResult;
+
+    int n = a.size();
+    int m = b.size();
+
+    while (i < n && j < m) {
+       
+        if (a[i] == b[j]) {
+            if (unionResult.empty() || unionResult.back() != a[i]) {
+                unionResult.push_back(a[i]);
+            }
+            i++;
+            j++;
+        }
+       
+        else if (a[i] < b[j]) {
+            if (unionResult.empty() || unionResult.back() != a[i]) {
+                unionResult.push_back(a[i]);
+            }
+            i++;
+        }
+       
+        else {
+            if (unionResult.empty() || unionResult.back() != b[j]) {
+                unionResult.push_back(b[j]);
+            }
+            j++;
+        }
+    }
+
+    
+    while (i < n) {
+        if (unionResult.empty() || unionResult.back() != a[i]) {
+            unionResult.push_back(a[i]);
+        }
+        i++;
+    }
+
+    
+    while (j < m) {
+        if (unionResult.empty() || unionResult.back() != b[j]) {
+            unionResult.push_back(b[j]);
+        }
+        j++;
+    }
+
+    return unionResult;
+    }
+};

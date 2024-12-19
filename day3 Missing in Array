@@ -1,0 +1,15 @@
+ int missingNumber(vector<int>& arr) {
+        // code here
+        int n=arr.size();
+        int sum=0,ans2=0;
+        int ans=0;
+        for(int i=0;i<n+1;i++){
+            sum++;
+            ans=ans+sum;
+        }
+        for(int i=0;i<n;i++){
+            ans2=ans2+arr[i];
+        }
+        return ans-ans2;
+        
+    }

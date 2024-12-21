@@ -1,0 +1,13 @@
+  // Function to find hIndex
+    int hIndex(vector<int>& arr) {
+        // code here
+   sort(arr.begin(), arr.end(), greater<int>());
+
+    int n = arr.size();
+    int idx = 0;
+
+	while(idx < n && arr[idx] > idx) {
+        idx += 1;
+    }
+    return idx;
+    }

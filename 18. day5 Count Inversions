@@ -1,0 +1,46 @@
+int count=0;
+    void mergeSort(vector<int> &arr, int l,int h){
+       if(h==l){
+            return;
+        }
+        int mid=(h+l)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,h);
+        merge(arr,mid,l,h);
+        
+    }
+    void merge(vector<int> &arr,int mid,int l,int h){
+        int left=l;
+        int right=mid+1;
+        vector<int> temp;
+        while(left<=mid&&right<=h){
+            if(arr[left]<=arr[right]){
+                temp.push_back(arr[left]);
+                left++;
+            }
+            else{
+                temp.push_back(arr[right]);
+                count+=(mid-left+1);
+                right++;
+            }
+        }
+        while(left<=mid){
+            temp.push_back(arr[left]);
+                left++;
+        }
+        while(right<=h){
+             temp.push_back(arr[right]);
+                right++;
+        }
+        for(int i=l;i<=h;i++){
+            arr[i]=temp[i-l];
+        }
+    }
+    
+    
+    int inversionCount(vector<int> &arr) {
+        // Your Code Here
+      int n=arr.size();
+      mergeSort(arr,0,n-1);
+      return count;
+    }

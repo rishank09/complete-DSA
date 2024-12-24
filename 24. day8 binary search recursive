@@ -1,0 +1,28 @@
+  int rs(vector<int> arr, int k,int s,int e){
+        
+        if(e<s){
+            return -1;
+        }
+        int mid=(s-e)/2+e;
+        if(arr[mid]==k){
+            return 1;
+        }
+        else if(arr[mid]>k){
+            return rs(arr,k,s,mid-1);
+        }
+        else{
+            return rs(arr,k,mid+1,e);
+        }
+        
+    }
+    bool searchInSorted(vector<int> arr, int k) {
+        int n=arr.size();
+        int s=0,e=n-1;
+        if(rs(arr,k,s,e)==1){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }

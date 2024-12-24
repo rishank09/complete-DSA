@@ -1,0 +1,33 @@
+ vector<int> getFloorAndCeil(int x, vector<int> &arr) {
+        // code here
+        vector<int> ans;
+        int n=arr.size();
+        int a,b;
+        int s=0,e=n-1;
+        sort(arr.begin(),arr.end());
+        if(arr[n-1]<x){
+            b=-1;
+        }
+        if(arr[0]>x){
+            a=-1;
+        }
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(arr[mid]==x){
+                a=x;
+                b=x;
+                break;
+            }
+            else if(arr[mid]<x){
+                a=arr[mid];
+                s=mid+1;
+            }
+            else{
+                b=arr[mid];
+                e=mid-1;
+            }
+        }
+        ans.push_back(a);
+                ans.push_back(b);
+                return ans;
+    }

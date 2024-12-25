@@ -1,0 +1,36 @@
+ bool Search(vector<int>& a, int k) {
+        // Code here
+        int n=a.size();
+        int s=0,e=n-1;
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(a[mid]==k){
+                return true;
+                break;
+            }
+            if(a[mid]==a[s]&&a[mid]==a[e]){
+                s++;
+                e--;
+            }
+            //left sorted
+            if(a[mid]>=a[s]){
+                if(k<=a[mid] && k>=a[s]){
+                    e=mid-1;
+                }
+                else{
+                    s=mid+1;
+                }
+            }
+            //right sorted
+            else{
+                if(k>=a[mid] && k<=a[e]){
+                    s=mid+1;
+                }
+                else{
+                    e=mid-1;
+                }
+            }
+        }
+        return false;
+        
+    }

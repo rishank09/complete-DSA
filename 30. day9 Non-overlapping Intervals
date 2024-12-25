@@ -1,0 +1,25 @@
+  int minRemoval(vector<vector<int>> &a) {
+        // code here
+        int ans=0;
+        int n=a.size();
+        sort(a.begin(),a.end());
+        int l=0,r=1;
+        while(r<n){
+            if(a[l][1]<=a[r][0]){
+                l=r;
+                r++;
+            }
+            else{
+                ans++;
+                if(a[l][0]<a[r][0]&&a[l][1]>a[r][1]){
+                    
+                 l=r;
+                 r++;
+                }
+                else{
+                    r++;
+                }
+            }
+        }
+        return ans;
+    }

@@ -1,0 +1,22 @@
+ int findMin(vector<int>& a) {
+        // complete the function here
+        int n=a.size();
+        int s=0,e=n-1;
+        int ans=INT_MAX;
+        while(s<=e){
+            int mid=(s+e)/2;
+           
+            if(a[mid]>=a[s]){
+                ans=min(ans,a[s]);
+                s=mid+1;
+            }
+            else{
+                 if(a[s]<a[mid]&&a[mid]<a[e]){
+                return a[s];
+            }
+                ans=min(ans,a[mid]);
+                e=mid-1;
+            }
+        }
+        return ans;
+    }

@@ -1,0 +1,39 @@
+ bool check(vector<int>& arr, int k,int mid){
+        int ans=0;
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]<=mid){
+                ans++;
+            }
+            else{
+                if(arr[i]%mid==0){
+                    ans=ans+arr[i]/mid;
+                }
+                else{
+                    ans=ans+arr[i]/mid + 1;
+                }
+            }
+        }
+        if(ans<=k){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    int kokoEat(vector<int>& arr, int k) {
+        // Code here
+        int ans=0;
+        int n=arr.size();
+        int s=1,e=*max_element(arr.begin(), arr.end());
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(check(arr,k,mid)){
+                ans=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return ans;
+    }

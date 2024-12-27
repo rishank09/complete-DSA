@@ -1,0 +1,57 @@
+class Solution {
+  public:
+    int sum(int arr[],int n){
+        int summ=0;
+        for(int i=0;i<n;i++){
+            summ = summ + arr[i];
+        }
+        return summ;
+    }
+    int maxi(int arr[],int n){
+        int ans=INT_MIN;
+        for(int i=0;i<n;i++){
+            if(arr[i]>ans){
+                ans=arr[i];
+            }
+            
+        }
+        return ans;
+    }
+    bool check(int arr[],int n,int d,int wt){
+        int day=1;
+        int load=0;
+        for(int i=0;i<n;i++){
+           if(load+arr[i]>wt){
+               day++;
+               load=arr[i];
+           }
+           else{
+               load=load+arr[i];
+           }
+        }
+        if(day>d){
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+    }
+    int leastWeightCapacity(int arr[], int n, int d) {
+        // code here
+        int ans;
+        int s=maxi(arr,n);
+        int e=sum(arr,n);
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(check(arr,n,d,mid)){
+                ans=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return ans;
+    }
+};

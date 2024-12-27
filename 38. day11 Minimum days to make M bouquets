@@ -1,0 +1,44 @@
+ bool check(vector<int> &arr,int m,int k,int x){
+        int n=arr.size();
+        int flw=0;
+        int bk=0;
+        for(int i=0;i<n;i++){
+            if(x>=arr[i]){
+              flw++;
+              if(flw==k){
+                  bk++;
+                  flw=0;
+              }
+            }
+            else{
+                flw=0;
+            }
+        }
+        if(bk>=m){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    int minDaysBloom(int m, int k, vector<int> &arr) {
+        // Code here
+        int ans=0;
+        int n=arr.size();
+        if(arr.size()<m*k){
+            return -1;
+        }
+        int s=*min_element(arr.begin(),arr.end());
+        int e=*max_element(arr.begin(),arr.end());
+        while(s<=e){
+            int mid=(e+s)/2;
+            if(check(arr,m,k,mid)){
+                ans=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return ans;
+    }

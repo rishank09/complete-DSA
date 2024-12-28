@@ -1,0 +1,44 @@
+  bool check(vector<int> &a,int c,int md){
+        int n=a.size();
+        int i=0,j=1;
+        int cow=c-1;
+        sort(a.begin(),a.end());
+        while(j<n){
+            int dif=a[j]-a[i];
+            if(dif>=md){
+                cow--;
+                if(cow==0){
+                    return true;
+                }
+                i=j;
+                j++;
+            }
+            else{
+                j++;
+                
+            }
+            
+        }
+       return false;
+    }
+    int aggressiveCows(vector<int> &a, int c) {
+        // Write your code here
+       
+       sort(a.begin(), a.end());
+        int n=a.size();
+        int e=a[n-1]-a[0];
+        int ans=0;
+        int s=1;
+        while(s<=e){
+            int mid=(e+s)/2;
+            if(check(a,c,mid)){
+                ans=mid;
+                s=mid+1;
+            }
+            else{
+                e=mid-1;
+            }
+        }
+       
+        return ans;
+    }

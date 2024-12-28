@@ -1,0 +1,64 @@
+ bool check(vector<int> &arr,int k, int x){
+        int i=0;
+        int std=0;
+        int pg=x;
+        int n=arr.size();
+        while(i<n){
+            if(pg==arr[i]){
+                std++;
+                i++;
+                pg=x;
+            }
+            else if(pg>arr[i]){
+                if(i==n-1){
+                    std++;
+                    i++;
+                }
+                else{
+                   pg=pg-arr[i];
+                    i++; 
+                }
+                
+            }
+            else{
+                std++;
+                pg=x;
+            }
+        }
+        if(std<=k){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    int sum(vector<int> &arr,int n){
+        int summ=0;
+        for(int i=0;i<n;i++){
+            summ=summ+arr[i];
+        }
+        return summ;
+    }
+    int findPages(vector<int> &arr, int k) {
+        // code here
+         if(k > arr.size())
+        return -1;
+        
+        
+        int n=arr.size();
+        int ans=0;
+        int s=*max_element(arr.begin(),arr.end());
+        int e=sum(arr,n);
+        while(s<=e){
+            int mid=(e+s)/2;
+            if(check(arr,k,mid)){
+                ans=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return ans;
+    }
+    

@@ -1,0 +1,10 @@
+    vector<int> nthRowOfPascalTriangle(int n) {
+        // code here
+        vector<int> ans;
+        ans.push_back(1);
+        for(int i=1;i<n;i++){
+            int temp=(ans.back())*(n-i)/i;
+            ans.push_back(temp);
+        }
+        return ans;
+    }

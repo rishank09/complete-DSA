@@ -1,0 +1,72 @@
+class Solution {
+  public:
+    vector<int> shortestPath(int V, int E, vector<vector<int>>& edges) {
+        // Code here
+        int src=1;
+         vector<vector<pair<int,int>>> adj = convert(V+1,edges);
+        priority_queue<
+        pair<int,int>,
+        vector<pair<int,int>>,
+        greater<pair<int,int>>
+        > q;
+        vector<int> dis(V+1,INT_MAX);
+        vector<int> path;
+        vector<int> p(V+1);
+        dis[src]=0;
+        p[1]=1;
+     //   vector<int> vis(V+1,0);
+        
+        q.push({0,src});
+      //  vis[src]=1;
+        while(q.size()){
+            int d = q.top().first;
+            int n = q.top().second;
+            q.pop();
+              if(d > dis[n]) continue;
+            for(auto it : adj[n]){
+             //   if(vis[it.first]==0){
+                  
+                    if(dis[it.first]>d+it.second){
+                         dis[it.first]=min(dis[it.first],d+it.second);
+                    q.push({dis[it.first],it.first});
+                    p[it.first]=n;
+                    }
+              //  }
+                
+            }
+            //vis[n]=1;
+        }
+     int a = V;
+if(dis[a] == INT_MAX){
+    return {-1};
+}
+
+while(a != 1){
+    path.push_back(a);
+    a = p[a];
+}
+path.push_back(1);
+reverse(path.begin(), path.end());
+
+// ✅ FIX: insert total distance at beginning
+path.insert(path.begin(), dis[V]);
+
+return path;
+
+        
+    }
+    
+      
+    vector<vector<pair<int,int>>> convert (int V, vector<vector<int>> &edges){
+        vector<vector<pair<int,int>>> adj(V);
+        for(auto it : edges){
+            int i=it[0];
+            int j=it[1];
+            int d=it[2];
+            adj[i].push_back({j,d}); 
+            adj[j].push_back({i,d}); 
+            
+        }
+        return adj;
+    }
+};

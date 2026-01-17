@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int minCostPath(vector<vector<int>>& mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+
+        vector<vector<int>> dist(n, vector<int>(m, INT_MAX));
+        priority_queue<
+            pair<int, pair<int,int>>,
+            vector<pair<int, pair<int,int>>>,
+            greater<pair<int, pair<int,int>>>
+        > pq;
+
+        dist[0][0] = 0;
+        pq.push({0, {0, 0}});
+
+        int dx[4] = {1, -1, 0, 0};
+        int dy[4] = {0, 0, 1, -1};
+
+        while (!pq.empty()) {
+            auto top = pq.top();
+            pq.pop();
+
+            int d = top.first;
+            int i = top.second.first;
+            int j = top.second.second;
+
+            if (i == n-1 && j == m-1)
+                return d;
+
+            if (d > dist[i][j]) continue;
+
+            for (int k = 0; k < 4; k++) {
+                int ni = i + dx[k];
+                int nj = j + dy[k];
+
+                if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
+                    int newEffort = max(
+                        d,
+                        abs(mat[i][j] - mat[ni][nj])
+                    );
+
+                    if (newEffort < dist[ni][nj]) {
+                        dist[ni][nj] = newEffort;
+                        pq.push({newEffort, {ni, nj}});
+                    }
+                }
+            }
+        }
+
+        return dist[n-1][m-1];
+    }
+};

@@ -1,0 +1,56 @@
+// User function Template for C++
+class Solution {
+  public:
+    int findCity(int V, int m, vector<vector<int>>& edges, int t) {
+        // Your code here
+        int INF = INT_MAX;
+        vector<vector<int>> dist(V,vector<int>(V,INF));
+             for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                   if(i==j){
+                       dist[i][j]=0;
+                   }
+                }
+            }
+            
+        for(auto it : edges){
+            int a = it[0];
+            int b = it[1];
+            int d = it[2];
+            dist[a][b]=d;
+            dist[b][a]=d;
+        }
+
+        for (int k = 0; k < V; k++) {
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    if (dist[i][k] != INF && dist[k][j] != INF) {
+                        dist[i][j] = min(dist[i][j],
+                                         dist[i][k] + dist[k][j]);
+                    }
+                }
+            }
+        }
+        
+         vector<vector<int>> arr(V);
+         for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                  if(i==j) continue;
+                  if(dist[i][j]<=t){
+                      arr[i].push_back(dist[i][j]);
+                  }
+                }
+            }
+            
+            int tep = INT_MAX;
+            int ans =-1;
+            for(int i=0;i<arr.size();i++){
+                int s = arr[i].size();
+                if(tep>=s){
+                    tep=s;
+                    ans=i;
+                }
+            }
+            return ans;
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int sum) {
+        // code here
+        int n = arr.size();
+        vector<vector<int>> t(sum+1,vector<int>(n+1,-1));
+        return fun(arr,sum,n,t);
+        
+    }
+    
+    bool fun(vector<int>& arr, int sum,int n,vector<vector<int>> &t){
+        if(sum==0) return t[sum][n]= 1;
+        if(sum!=0&&n==0) return t[sum][n]= 0;
+        if(sum<0) return t[sum][n] = 0;
+        
+        if(t[sum][n]!=-1) return t[sum][n];
+        
+        if (arr[n-1] > sum)
+            return t[sum][n] = fun(arr, sum, n-1, t);
+        
+        
+        
+        return t[sum][n]= fun(arr,sum,n-1,t) || fun(arr,sum-arr[n-1],n-1,t);
+    }
+};

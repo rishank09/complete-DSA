@@ -1,0 +1,25 @@
+class Solution {
+  public:
+  
+   
+  
+    int knapsack(int w, vector<int> &val, vector<int> &wt) {
+        // code here
+        int n = val.size();
+        vector<vector<int>> t(w+1,vector<int>(n+1,-1));
+        return kp(w,val,wt,n,t);
+    }
+    
+    int kp(int w, vector<int> &val, vector<int> &wt,int n,vector<vector<int>> &t){
+        if(w==0||n==0) return t[0][0]=0;
+        if(t[w][n]!=-1){
+            return t[w][n];
+        }
+        
+        if(wt[n-1]>w) return t[w][n] = kp(w,val,wt,n-1,t);
+        
+        
+        
+        return t[w][n]= max(kp(w,val,wt,n-1,t),val[n-1]+kp(w-wt[n-1],val,wt,n-1,t));
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    bool equalPartition(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        int s=0;
+        for(auto it : arr){
+            s=s+it;
+        }
+        if(s%2!=0) return 0;
+        int sum = s/2;
+        vector<vector<int>> t(n+1,vector<int>(sum+1,-1));
+       return fun(arr,sum,t,n);
+    }
+    
+    bool fun(vector<int>& arr,int sum,vector<vector<int>> &t,int n){
+        if(sum==0) return 1;
+        if(n==0) return 0;
+        if(sum<0) return 0;
+        if(t[n][sum]!=-1) return t[n][sum];
+        
+        
+        return t[n][sum] = fun(arr,sum-arr[n-1],t,n-1) || fun(arr,sum,t,n-1); 
+    }
+};

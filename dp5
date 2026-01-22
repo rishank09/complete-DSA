@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    bool checkSubsequenceSum(int n, vector<int>& arr, int k) {
+        // Code here
+        vector<vector<int>> t(n+1,vector<int> (k+1,-1));
+        return sol(arr,n,k,t);
+    }
+    
+    bool sol(vector<int>& arr,int n,int k,vector<vector<int>> &t){
+        if(k==0) return 1;
+        if(n==0) return 0;
+        
+        if(t[n][k]!=-1) return t[n][k];
+        
+        if(arr[n-1]>k) return sol(arr,n-1,k,t);
+        return t[n][k]= sol(arr,n-1,k-arr[n-1],t)||sol(arr,n-1,k,t);
+    }
+    
+    
+};

@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    int count(vector<int>& coins, int sum) {
+        // code here.
+        int n = coins.size();
+        vector<vector<int>> dp(sum+1,vector<int>(n,-1));
+        return sol(coins,sum,n-1,dp);
+    }
+    
+    int sol(vector<int> &coins,int l,int i, vector<vector<int>> &dp){
+        if(i<0){
+           return 0;
+        }
+        if(l==0) return 1;
+        
+        if(dp[l][i]!=-1) return dp[l][i];
+        
+        if(l<coins[i]) return dp[l][i]=sol(coins,l,i-1,dp);
+        
+        int take = sol(coins,l-coins[i],i,dp);
+        int nt = sol(coins,l,i-1,dp);
+        
+        return dp[l][i] = take+nt;
+    }
+};

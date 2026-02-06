@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    int minCoins(vector<int> &coins, int sum) {
+        // code here
+        if(sum==0) return 0;
+        sort(coins.begin(),coins.end());
+        int n = coins.size();
+        vector<vector<int>> dp(sum+1,vector<int>(n,-1));
+        int ans = sol(coins,sum,n-1,dp);
+        if(ans==1000){
+            return -1;
+        } 
+        else{
+            return ans;
+        }
+    }
+    
+    
+    int sol(vector<int> &coins,int l,int i, vector<vector<int>> &dp){
+       if(l==0) return 0;
+        if(i<0){
+           return 1000;
+        }
+        
+        
+        if(dp[l][i]!=-1) return dp[l][i];
+        
+        if(l<coins[i]) return dp[l][i]=sol(coins,l,i-1,dp);
+        
+        int take = sol(coins,l-coins[i],i,dp);
+        int nt = sol(coins,l,i-1,dp);
+        
+        return dp[l][i] = min(take+1,nt);
+    }
+};

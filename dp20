@@ -1,0 +1,30 @@
+// User function template for C++
+
+class Solution {
+  public:
+    int countMin(string s) {
+        // complete the function here
+        int n = s.size();
+        string t = "";
+        for(auto it : s){
+            t=t+it;
+        }
+        reverse(t.begin(),t.end());
+        vector<vector<int>> dp(n,vector<int>(n,-1));
+        return n-sol(s,t,n-1,n-1,dp);
+        
+    }
+    
+    int sol(string &s, string &t,int n,int m, vector<vector<int>> &dp){
+        if(n<0||m<0) return 0;
+
+        if(dp[n][m]!=-1) return dp[n][m];
+
+        if(s[n]==t[m]){
+            return dp[n][m] = sol(s,t,n-1,m-1,dp)+1;
+        }
+        else{
+            return dp[n][m] = max(sol(s,t,n,m-1,dp),sol(s,t,n-1,m,dp));
+        }
+    }
+};

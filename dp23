@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    int lis(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+        return sol(arr,0,n-1,-1,dp);
+    }
+    
+    int sol(vector<int>& arr,int i,int n,int p,vector<vector<int>> &dp){
+        if(i>n) return 0;
+        
+        if(dp[i+1][p+1]!=-1) return dp[i+1][p+1];
+        
+        int l = sol(arr,i+1,n,p,dp);
+        int r = 0;
+        if(p==-1||arr[p]<arr[i]){
+             r = sol(arr,i+1,n,i,dp)+1;
+        }
+        
+        return dp[i+1][p+1] = max(r,l);
+        
+        
+    }
+};
